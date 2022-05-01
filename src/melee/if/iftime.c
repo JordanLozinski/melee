@@ -3,19 +3,18 @@
 #include <sysdolphin/baselib/jobj.h>
 
 static f32 lbl_804DDA40 = 0x43300000;
+static f32 lbl_804DDA38 = 0x00000000;
 extern void func_80390228(struct _HSD_GObj*);
-extern u32 Timer_UpdateSubSeconds (); // func_8016AF0C
+extern u32 func_8016AF0C (); // Timer_UpdateSubSeconds
 extern u32 HSD_JObjGetFlags(HSD_JObj*);
 extern void HSD_JObjSetFlagsAll(HSD_JObj* jobj, u32 unk); 
 extern void HSD_JObjClearFlagsAll(struct _HSD_JObj*, unsigned int);
 
-extern u32 MatchInfo_LoadSeconds(void); // func_8016AEEC
-extern void func_8000C0E8(void*, u8, u32); // func_8000C0E8(void* hsd_obj, foo->x30, ?)
+extern u32 func_8016AEEC(void); // MatchInfo_LoadSeconds
+extern void func_8000C0E8(HSD_JObj*, u32, struct _HSD_ClassInfo *); // func_8000C0E8(void* hsd_obj, foo->x30, ?)
 extern void func_8000C160(struct _HSD_GObj**, unsigned int);
 extern void func_80390228(struct _HSD_GObj*);
 extern u32 HSD_JObjGetFlags(HSD_JObj*);
-
-extern u32 Timer_UpdateSubSeconds (); // func_8016AF0C
 
 // TODO decomp this and remove it from iftime.s
 extern void func_802F3AE8(HSD_JObj* param_1,int param_2,int param_3);
@@ -43,6 +42,7 @@ void func_802F405C(void) {
     }
 }
 
+// Match_ShowTimer
 void func_802F40B8(void) {
     long padding[6];
     struct TimerInfo* tinfo = &lbl_804A1078;
@@ -66,8 +66,8 @@ int func_802F4144(void) {
     u16 sVar2;
     s32 iVar1;
 
-    sVar2 = Timer_UpdateSubSeconds(); // func_8016AF0C
-    iVar1 = MatchInfo_LoadSeconds();
+    sVar2 = func_8016AF0C(); // func_8016AF0C
+    iVar1 = func_8016AEEC();
     if ((s32)sVar2 == 0){
         iVar1 = 5 - iVar1;
     } else {
@@ -78,6 +78,42 @@ int func_802F4144(void) {
         iVar1 = 0;
     }
     return iVar1;
+}
+
+// It seems like func_802F4144 is inlined here but I couldn't get the codegen to match. 
+// This function is called for the timer countdown at the last 5 seconds of a match.
+void lbl_802F4194(HSD_GObj* param_1) {
+    u16 temp_r30;
+    void* temp_r29;
+    s32 phi_r3;
+    s32 phi_r3_2;
+    long padding;
+    struct TimerInfo* tinfo = &lbl_804A1078;
+    HSD_JObj** arr = tinfo->objptr;
+
+    temp_r29 = param_1->hsd_obj;
+    temp_r30 = func_8016AF0C();
+    phi_r3 = func_8016AEEC();
+    if ((s32) temp_r30 == 0)
+    {
+        phi_r3_2 = 5 - phi_r3;
+    } else {
+        phi_r3_2 = 4 - phi_r3;
+    }
+
+    if ((int)phi_r3_2 < 0) {
+        phi_r3_2 = 0;
+    }
+
+    // If we're at the end of a given number in the countdown
+    if (phi_r3_2 != tinfo->timer_idx) {
+        lbl_804A1078.timer_idx = (u8)phi_r3_2;
+        func_8036F6B4(temp_r29);
+        func_8000C0E8(temp_r29, tinfo->timer_idx, lbl_804A1078.mystery_jobj->object.parent.class_info);
+        HSD_JObjReqAnimAll(temp_r29, lbl_804DDA38);
+        HSD_JObjAnimAll(temp_r29);
+    }
+    HSD_JObjAnimAll(temp_r29);
 }
 
 void func_802F480C(void) {
