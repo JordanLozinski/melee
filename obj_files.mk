@@ -212,6 +212,7 @@ TEXT_O_FILES := 						            \
 															\
 	$(BUILD_DIR)/asm/melee/if/ifall.o                      	\
 	$(BUILD_DIR)/asm/melee/if/iftime.o                      \
+	$(BUILD_DIR)/src/melee/if/iftime.o                      \
 	$(BUILD_DIR)/asm/melee/if/ifstatus.o                   	\
 	$(BUILD_DIR)/asm/melee/if/code_802F7288.o               \
 	$(BUILD_DIR)/asm/melee/if/ifstock.o                     \
