@@ -1105,7 +1105,7 @@ lbl_8000F998:
 /* 8000F998 0000C578  80 7D 20 A8 */	lwz r3, 0x20a8(r29)
 /* 8000F99C 0000C57C  48 36 FA F5 */	bl HSD_ShadowInit
 /* 8000F9A0 0000C580  38 60 00 03 */	li r3, 3
-/* 8000F9A4 0000C584  48 36 5B 95 */	bl func_80375538
+/* 8000F9A4 0000C584  48 36 5B 95 */	bl HSD_StartRender
 /* 8000F9A8 0000C588  93 8D C1 74 */	stw r28, lbl_804D7814@sda21(r13)
 /* 8000F9AC 0000C58C  80 7D 20 A8 */	lwz r3, 0x20a8(r29)
 /* 8000F9B0 0000C590  48 36 FD F1 */	bl HSD_ShadowStartRender
@@ -1130,10 +1130,9 @@ lbl_8000F9D4:
 /* 8000F9F0 0000C5D0  7C 08 03 A6 */	mtlr r0
 /* 8000F9F4 0000C5D4  4E 80 00 20 */	blr 
 
+
 .section .data
-
-    .4byte NULL
-
+    .balign 8
 .global lbl_803BA0D8
 lbl_803BA0D8:
     .asciz "lbshadow.c"
@@ -1162,11 +1161,10 @@ lbl_803BA0FC:
     .4byte NULL
     .asciz "coudn t get light position ...\n"
     .balign 4
-    .4byte NULL
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D3728
 lbl_804D3728:
     .asciz "shadow"
@@ -1183,7 +1181,7 @@ lbl_804D3738:
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804D7B30
 lbl_804D7B30:
 	.4byte 0xC0400000

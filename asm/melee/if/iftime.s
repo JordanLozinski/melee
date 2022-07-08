@@ -777,7 +777,7 @@ lbl_802F47F8:
 /* 802F4808 002F13E8  4E 80 00 20 */	blr 
 
 .section .data
-
+    .balign 8
 .global lbl_803F94E8
 lbl_803F94E8:
     .asciz "ScInfTim_scene_models"
@@ -795,9 +795,14 @@ lbl_803F94E8:
 
 
 .section .bss, "wa"
+    .balign 8
+.global lbl_804A1078
+lbl_804A1078:
+	.skip 0x50
+
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D5788
 lbl_804D5788:
     .asciz "tdsce"
@@ -813,11 +818,10 @@ lbl_804D5794:
 lbl_804D579C:
     .asciz "jobj"
     .balign 4
-    .4byte NULL
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804DDA38
 lbl_804DDA38:
 	.4byte 0x00000000

@@ -219,36 +219,36 @@ lbl_801EFEE4:
 /* 801EFF68 001ECB48  88 1F 00 10 */	lbz r0, 0x10(r31)
 /* 801EFF6C 001ECB4C  50 80 17 7A */	rlwimi r0, r4, 2, 0x1d, 0x1d
 /* 801EFF70 001ECB50  98 1F 00 10 */	stb r0, 0x10(r31)
-/* 801EFF74 001ECB54  48 03 4C 85 */	bl unk_set_vec3_to_cam_offset_80224BF8
-/* 801EFF78 001ECB58  48 03 4B 09 */	bl get_cam_bounds_top_offset
+/* 801EFF74 001ECB54  48 03 4C 85 */	bl Stage_UnkSetVec3TCam_Offset
+/* 801EFF78 001ECB58  48 03 4B 09 */	bl Stage_GetCamBoundsTopOffset
 /* 801EFF7C 001ECB5C  C0 01 00 20 */	lfs f0, 0x20(r1)
 /* 801EFF80 001ECB60  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFF84 001ECB64  D0 1F 01 14 */	stfs f0, 0x114(r31)
-/* 801EFF88 001ECB68  48 03 4B 11 */	bl get_cam_bounds_bottom_offset
+/* 801EFF88 001ECB68  48 03 4B 11 */	bl Stage_GetCamBoundsBottomOffset
 /* 801EFF8C 001ECB6C  C0 01 00 20 */	lfs f0, 0x20(r1)
 /* 801EFF90 001ECB70  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFF94 001ECB74  D0 1F 01 18 */	stfs f0, 0x118(r31)
-/* 801EFF98 001ECB78  48 03 4A BD */	bl get_cam_bounds_left_offset
+/* 801EFF98 001ECB78  48 03 4A BD */	bl Stage_GetCamBoundsLeftOffset
 /* 801EFF9C 001ECB7C  C0 01 00 1C */	lfs f0, 0x1c(r1)
 /* 801EFFA0 001ECB80  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFFA4 001ECB84  D0 1F 01 1C */	stfs f0, 0x11c(r31)
-/* 801EFFA8 001ECB88  48 03 4A C1 */	bl get_cam_bounds_right_offset
+/* 801EFFA8 001ECB88  48 03 4A C1 */	bl Stage_GetCamBoundsRightOffset
 /* 801EFFAC 001ECB8C  C0 01 00 1C */	lfs f0, 0x1c(r1)
 /* 801EFFB0 001ECB90  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFFB4 001ECB94  D0 1F 01 20 */	stfs f0, 0x120(r31)
-/* 801EFFB8 001ECB98  48 03 4B B1 */	bl get_blast_zone_top_offset
+/* 801EFFB8 001ECB98  48 03 4B B1 */	bl Stage_GetBlastZoneTopOffset
 /* 801EFFBC 001ECB9C  C0 01 00 20 */	lfs f0, 0x20(r1)
 /* 801EFFC0 001ECBA0  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFFC4 001ECBA4  D0 1F 01 24 */	stfs f0, 0x124(r31)
-/* 801EFFC8 001ECBA8  48 03 4B B9 */	bl get_blast_zone_bottom_offset
+/* 801EFFC8 001ECBA8  48 03 4B B9 */	bl Stage_GetBlastZoneBottomOffset
 /* 801EFFCC 001ECBAC  C0 01 00 20 */	lfs f0, 0x20(r1)
 /* 801EFFD0 001ECBB0  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFFD4 001ECBB4  D0 1F 01 28 */	stfs f0, 0x128(r31)
-/* 801EFFD8 001ECBB8  48 03 4B 79 */	bl get_blast_zone_left_offset
+/* 801EFFD8 001ECBB8  48 03 4B 79 */	bl Stage_GetBlastZoneLeftOffset
 /* 801EFFDC 001ECBBC  C0 01 00 1C */	lfs f0, 0x1c(r1)
 /* 801EFFE0 001ECBC0  EC 01 00 28 */	fsubs f0, f1, f0
 /* 801EFFE4 001ECBC4  D0 1F 01 2C */	stfs f0, 0x12c(r31)
-/* 801EFFE8 001ECBC8  48 03 4B 51 */	bl get_blast_zone_right_offset
+/* 801EFFE8 001ECBC8  48 03 4B 51 */	bl Stage_GetBlastZoneRightOffset
 /* 801EFFEC 001ECBCC  C0 01 00 1C */	lfs f0, 0x1c(r1)
 /* 801EFFF0 001ECBD0  38 60 00 1D */	li r3, 0x1d
 /* 801EFFF4 001ECBD4  EC 01 00 28 */	fsubs f0, f1, f0
@@ -1289,7 +1289,7 @@ lbl_801F0DC4:
 /* 801F0DD8 001ED9B8  C0 01 00 28 */	lfs f0, 0x28(r1)
 /* 801F0DDC 001ED9BC  EC 23 08 28 */	fsubs f1, f3, f1
 /* 801F0DE0 001ED9C0  EC 42 00 28 */	fsubs f2, f2, f0
-/* 801F0DE4 001ED9C4  4B E3 1E 4D */	bl func_80022C30
+/* 801F0DE4 001ED9C4  4B E3 1E 4D */	bl func_someCalcAngle_80022C30
 /* 801F0DE8 001ED9C8  C0 42 BA 60 */	lfs f2, lbl_804DB440@sda21(r2)
 /* 801F0DEC 001ED9CC  C0 02 BA 64 */	lfs f0, lbl_804DB444@sda21(r2)
 /* 801F0DF0 001ED9D0  EC 42 08 2A */	fadds f2, f2, f1
@@ -3533,17 +3533,16 @@ lbl_801F2CF4:
 
 
 .section .rodata
-
+    .balign 8
 .global lbl_803B81B8
 lbl_803B81B8:
-    .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
 
 
 .section .data
-
+    .balign 8
 .global lbl_803E30B0
 lbl_803E30B0:
     .4byte 0x0006001D
@@ -4329,7 +4328,7 @@ lbl_803E3B7C:
 
 
 .section .bss, "wa"
-
+    .balign 8
 .global lbl_8049F440
 lbl_8049F440:
 	.skip 0x78
@@ -4339,7 +4338,7 @@ lbl_8049F4B8:
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D46C0
 lbl_804D46C0:
     .asciz "0"
@@ -4368,7 +4367,7 @@ lbl_804D46E0:
 
 
 .section .sbss
-
+    .balign 8
 .global lbl_804D69D0
 lbl_804D69D0:
 	.skip 0x4
@@ -4378,7 +4377,7 @@ lbl_804D69D4:
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804DB3F8
 lbl_804DB3F8:
 	.4byte 0x00000000

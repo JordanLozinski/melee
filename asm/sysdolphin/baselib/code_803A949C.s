@@ -13811,7 +13811,7 @@ lbl_803B52B0:
 /* 803B52DC 003B1EBC  90 01 01 FC */	stw r0, 0x1fc(r1)
 /* 803B52E0 003B1EC0  88 18 00 14 */	lbz r0, 0x14(r24)
 /* 803B52E4 003B1EC4  98 01 02 00 */	stb r0, 0x200(r1)
-/* 803B52E8 003B1EC8  4B F7 08 1D */	bl func_80325B04
+/* 803B52E8 003B1EC8  4B F7 08 1D */	bl strlen
 /* 803B52EC 003B1ECC  3A E3 00 01 */	addi r23, r3, 1
 /* 803B52F0 003B1ED0  38 60 00 FF */	li r3, 0xff
 /* 803B52F4 003B1ED4  4B FF E0 51 */	bl func_803B3344
@@ -15974,7 +15974,7 @@ lbl_803B721C:
 
 
 .section .rodata
-
+    .balign 8
 .global lbl_803B9670
 lbl_803B9670:
     .4byte 0x48414C20
@@ -16090,7 +16090,7 @@ lbl_803B9670:
 
 
 .section .data
-
+    .balign 8
 .global lbl_8040FF80
 lbl_8040FF80:
     .4byte NULL
@@ -50380,7 +50380,7 @@ lbl_804316B4:
 
 
 .section .bss, "wa"
-
+    .balign 8
 .global lbl_804D1138
 lbl_804D1138:
 	.skip 0x10
@@ -50399,7 +50399,7 @@ lbl_804D2E70:
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D6398
 lbl_804D6398:
 	.long 3
@@ -50407,7 +50407,7 @@ lbl_804D6398:
 
 
 .section .sbss
-
+    .balign 8
 .global lbl_804D7980
 lbl_804D7980:
 	.skip 0x4
@@ -50465,7 +50465,7 @@ lbl_804D79C8:
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804DEB10
 lbl_804DEB10:
 	.4byte 0x3F000000

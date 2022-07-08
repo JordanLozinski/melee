@@ -1215,7 +1215,7 @@ lbl_8020985C:
 /* 80209874 00206454  2C 03 00 00 */	cmpwi r3, 0
 /* 80209878 00206458  41 82 00 18 */	beq lbl_80209890
 /* 8020987C 0020645C  38 61 00 5C */	addi r3, r1, 0x5c
-/* 80209880 00206460  48 01 B3 79 */	bl unk_set_vec3_to_cam_offset_80224BF8
+/* 80209880 00206460  48 01 B3 79 */	bl Stage_UnkSetVec3TCam_Offset
 /* 80209884 00206464  38 00 00 3C */	li r0, 0x3c
 /* 80209888 00206468  B0 1F 00 CE */	sth r0, 0xce(r31)
 /* 8020988C 0020646C  48 00 00 4C */	b lbl_802098D8
@@ -1225,7 +1225,7 @@ lbl_80209890:
 /* 80209898 00206478  2C 03 00 00 */	cmpwi r3, 0
 /* 8020989C 0020647C  41 82 00 18 */	beq lbl_802098B4
 /* 802098A0 00206480  38 61 00 5C */	addi r3, r1, 0x5c
-/* 802098A4 00206484  48 01 B3 55 */	bl unk_set_vec3_to_cam_offset_80224BF8
+/* 802098A4 00206484  48 01 B3 55 */	bl Stage_UnkSetVec3TCam_Offset
 /* 802098A8 00206488  38 00 00 00 */	li r0, 0
 /* 802098AC 0020648C  B0 1F 00 CE */	sth r0, 0xce(r31)
 /* 802098B0 00206490  48 00 00 28 */	b lbl_802098D8
@@ -1239,7 +1239,7 @@ lbl_802098B4:
 /* 802098CC 002064AC  48 00 00 0C */	b lbl_802098D8
 lbl_802098D0:
 /* 802098D0 002064B0  38 61 00 5C */	addi r3, r1, 0x5c
-/* 802098D4 002064B4  48 01 B3 25 */	bl unk_set_vec3_to_cam_offset_80224BF8
+/* 802098D4 002064B4  48 01 B3 25 */	bl Stage_UnkSetVec3TCam_Offset
 lbl_802098D8:
 /* 802098D8 002064B8  38 60 00 01 */	li r3, 1
 /* 802098DC 002064BC  4B E2 72 05 */	bl func_80030AE0
@@ -1272,7 +1272,7 @@ lbl_80209924:
 /* 8020993C 0020651C  C8 01 00 98 */	lfd f0, 0x98(r1)
 /* 80209940 00206520  EC 00 08 28 */	fsubs f0, f0, f1
 /* 80209944 00206524  EF E2 00 24 */	fdivs f31, f2, f0
-/* 80209948 00206528  48 01 B2 B1 */	bl unk_set_vec3_to_cam_offset_80224BF8
+/* 80209948 00206528  48 01 B2 B1 */	bl Stage_UnkSetVec3TCam_Offset
 /* 8020994C 0020652C  38 61 00 5C */	addi r3, r1, 0x5c
 /* 80209950 00206530  38 81 00 50 */	addi r4, r1, 0x50
 /* 80209954 00206534  4B E0 3B 71 */	bl lbvector_Sub
@@ -1296,7 +1296,7 @@ lbl_80209924:
 /* 8020999C 0020657C  B0 1F 00 CE */	sth r0, 0xce(r31)
 lbl_802099A0:
 /* 802099A0 00206580  38 61 00 44 */	addi r3, r1, 0x44
-/* 802099A4 00206584  48 01 B2 55 */	bl unk_set_vec3_to_cam_offset_80224BF8
+/* 802099A4 00206584  48 01 B2 55 */	bl Stage_UnkSetVec3TCam_Offset
 /* 802099A8 00206588  3B 40 00 00 */	li r26, 0
 /* 802099AC 0020658C  3B 7F 00 00 */	addi r27, r31, 0
 lbl_802099B0:
@@ -2749,7 +2749,7 @@ lbl_8020AD58:
 /* 8020AD94 00207974  4B E7 BE 4D */	bl func_80086BE0
 /* 8020AD98 00207978  54 7F 06 3E */	clrlwi r31, r3, 0x18
 /* 8020AD9C 0020797C  38 7F 00 00 */	addi r3, r31, 0
-/* 8020ADA0 00207980  4B E2 93 71 */	bl func_80034110
+/* 8020ADA0 00207980  4B E2 93 71 */	bl Player_GetEntity
 /* 8020ADA4 00207984  80 1E 00 00 */	lwz r0, 0(r30)
 /* 8020ADA8 00207988  7C 00 18 40 */	cmplw r0, r3
 /* 8020ADAC 0020798C  40 82 00 38 */	bne lbl_8020ADE4
@@ -2757,7 +2757,7 @@ lbl_8020AD58:
 /* 8020ADB4 00207994  B0 1D 00 CA */	sth r0, 0xca(r29)
 /* 8020ADB8 00207998  38 7F 00 00 */	addi r3, r31, 0
 /* 8020ADBC 0020799C  38 80 00 01 */	li r4, 1
-/* 8020ADC0 002079A0  4B E2 93 CD */	bl func_8003418C
+/* 8020ADC0 002079A0  4B E2 93 CD */	bl Player_GetEntityAtIndex
 /* 8020ADC4 002079A4  28 03 00 00 */	cmplwi r3, 0
 /* 8020ADC8 002079A8  41 82 00 10 */	beq lbl_8020ADD8
 /* 8020ADCC 002079AC  4B E7 C5 51 */	bl func_8008731C
@@ -3023,7 +3023,7 @@ lbl_8020B14C:
 
 
 .section .rodata
-
+    .balign 8
 .global lbl_803B8360
 lbl_803B8360:
     .4byte 0x00000000
@@ -3053,7 +3053,7 @@ lbl_803B8390:
 
 
 .section .data
-
+    .balign 8
 .global lbl_803E58E0
 lbl_803E58E0:
     .4byte 0x0033004F
@@ -3099,9 +3099,8 @@ lbl_803E58F0:
     .4byte NULL
 .global lbl_803E597C
 lbl_803E597C:
-    .4byte 0x2F47724E
-    .4byte 0x53722E64
-    .4byte 0x61740000
+    .asciz "/GrNSr.dat"
+    .balign 4
 .global lbl_803E5988
 lbl_803E5988:
     .4byte 0x00000020
@@ -3117,15 +3116,8 @@ lbl_803E5988:
     .4byte 0x00000001
     .4byte NULL
     .4byte NULL
-    .4byte 0x25733A25
-    .4byte 0x643A2063
-    .4byte 0x6F756C64
-    .4byte 0x6E207420
-    .4byte 0x67657420
-    .4byte 0x676F626A
-    .4byte 0x2869643D
-    .4byte 0x2564290A
-    .4byte NULL
+    .asciz "%s:%d: couldn t get gobj(id=%d)\n"
+    .balign 4
 .global lbl_803E59E0
 lbl_803E59E0:
     .asciz "grshrineroute.c"
@@ -3147,16 +3139,8 @@ jtbl_803E5A14:
 	.4byte lbl_80209620
 	.4byte lbl_802096AC
 	.4byte lbl_80209848
-    .4byte 0x21286A6F
-    .4byte 0x626A2D3E
-    .4byte 0x666C6167
-    .4byte 0x73202620
-    .4byte 0x4A4F424A
-    .4byte 0x5F555345
-    .4byte 0x5F515541
-    .4byte 0x5445524E
-    .4byte 0x494F4E29
-    .4byte NULL
+    .asciz "!(jobj->flags & JOBJ_USE_QUATERNION)"
+    .balign 4
 .global lbl_803E5A58
 lbl_803E5A58:
     .4byte 0x80664DFF
@@ -3380,7 +3364,7 @@ lbl_803E5D90:
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D4808
 lbl_804D4808:
     .asciz "jobj.h"
@@ -3415,14 +3399,14 @@ lbl_804D4838:
 
 
 .section .sbss
-
+    .balign 8
 .global lbl_804D6A58
 lbl_804D6A58:
-	.skip 0x8
+	.skip 0x4
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804DB880
 lbl_804DB880:
 	.4byte 0x00000000
