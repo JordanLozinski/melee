@@ -134,7 +134,8 @@ float lbvector_AngleXY(Vec* a, Vec* b)
     return 0.0f;
 }
 
-// Taylor series approximations of sin and cos
+// Approximations of sine/cosine which are the best quintic approximations for the x range (-pi,pi). They can be derived by using the Gran-Schmidt Procedure,
+// which is described in the following paper: https://math.berkeley.edu/~arash/54/notes/6_4.pdf
 
 static float sin(float angle)
 {
@@ -311,7 +312,7 @@ Vec *func_8000DE38(Mtx m, Vec *v, float c)
 }
 
 extern float func_80022DBC(float); // asin
-extern float func_80022C30(float, float); // atan2
+extern float func_someCalcAngle_80022C30(float, float); // atan2
 
 
 // 8000DF0C - computes euler angles phi_x,phi_y,phi_z that rotate the standard basis (e1,e2,e3) onto the orthonormal basis (b,c,a)
@@ -323,20 +324,20 @@ Vec *lbvector_EulerAnglesFromONB(Vec *result_angles, Vec *a, Vec *b, Vec *c)
         if (b->z == -1.0f)
         {
             result_angles->y = 1.5707963705062866f; // pi/2
-            result_angles->x = func_80022C30(c->x, c->y); // atan2
+            result_angles->x = func_someCalcAngle_80022C30(c->x, c->y); // atan2
         }
         else
         {
             result_angles->y = -1.5707963705062866f; // -pi/2
-            result_angles->x = func_80022C30(-c->x, c->y); // atan2
+            result_angles->x = func_someCalcAngle_80022C30(-c->x, c->y); // atan2
         }
         result_angles->z = 0.0f;
     }
     else
     {
         result_angles->y = func_80022DBC(-b->z); // asin
-        result_angles->x = func_80022C30(c->z, a->z); // atan2
-        result_angles->z = func_80022C30(b->y, b->x); // atan2
+        result_angles->x = func_someCalcAngle_80022C30(c->z, a->z); // atan2
+        result_angles->z = func_someCalcAngle_80022C30(b->y, b->x); // atan2
     }
     return result_angles;
 }
@@ -369,8 +370,6 @@ float lbvector_sqrtf_accurate(float x)
     return sqrtf_accurate(x);
 }
 
-#define assert_line(condition, line) ((condition) ? ((void) 0) : __assert(__FILE__, line, #condition))
-
 extern MtxPtr func_80369688(HSD_CObj *);
 
 
@@ -389,10 +388,10 @@ Vec *lbvector_WorldToScreen(HSD_CObj *cobj, const Point3d *pos3d, Point3d *scree
     MtxPtr mvMtx;  // modelview matrix
     float f1;
 
-    assert_line(pos3d, 676);
-    assert_line(pos3d->x>-50000.0F&&pos3d->x<50000.0F, 677);
-    assert_line(pos3d->y>-50000.0F&&pos3d->y<50000.0F, 678);
-    assert_line(pos3d->z>-50000.0F&&pos3d->z<50000.0F, 679);
+    assert_line(676, pos3d);
+    assert_line(677, pos3d->x>-50000.0F&&pos3d->x<50000.0F);
+    assert_line(678, pos3d->y>-50000.0F&&pos3d->y<50000.0F);
+    assert_line(679, pos3d->z>-50000.0F&&pos3d->z<50000.0F);
 
     point = *pos3d;
     switch (HSD_CObjGetProjectionType(cobj))

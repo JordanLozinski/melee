@@ -645,7 +645,7 @@ lbl_8005BD38:
 /* 8005BD5C 0005893C  48 32 C4 C5 */	bl __assert
 lbl_8005BD60:
 /* 8005BD60 00058940  7F A3 EB 78 */	mr r3, r29
-/* 8005BD64 00058944  4B FA C0 05 */	bl HSD_JObjGetMtxPtr
+/* 8005BD64 00058944  4B FA C0 05 */	bl HSD_JObjUnkMtxPtr
 /* 8005BD68 00058948  38 7D 00 44 */	addi r3, r29, 0x44
 /* 8005BD6C 0005894C  38 81 00 1C */	addi r4, r1, 0x1c
 /* 8005BD70 00058950  48 31 E2 19 */	bl func_80379F88
@@ -4429,7 +4429,7 @@ lbl_8005F104:
 /* 8005F118 0005BCF8  41 82 00 A8 */	beq lbl_8005F1C0
 /* 8005F11C 0005BCFC  C0 3E 08 44 */	lfs f1, 0x844(r30)
 /* 8005F120 0005BD00  C0 5E 08 48 */	lfs f2, 0x848(r30)
-/* 8005F124 0005BD04  4B FC 3B 0D */	bl func_80022C30
+/* 8005F124 0005BD04  4B FC 3B 0D */	bl func_someCalcAngle_80022C30
 /* 8005F128 0005BD08  28 1F 00 00 */	cmplwi r31, 0
 /* 8005F12C 0005BD0C  FF E0 08 50 */	fneg f31, f1
 /* 8005F130 0005BD10  40 82 00 14 */	bne lbl_8005F144
@@ -4569,7 +4569,7 @@ lbl_8005F2E8:
 /* 8005F2FC 0005BEDC  41 82 00 A8 */	beq lbl_8005F3A4
 /* 8005F300 0005BEE0  C0 3E 08 44 */	lfs f1, 0x844(r30)
 /* 8005F304 0005BEE4  C0 5E 08 48 */	lfs f2, 0x848(r30)
-/* 8005F308 0005BEE8  4B FC 39 29 */	bl func_80022C30
+/* 8005F308 0005BEE8  4B FC 39 29 */	bl func_someCalcAngle_80022C30
 /* 8005F30C 0005BEEC  28 1F 00 00 */	cmplwi r31, 0
 /* 8005F310 0005BEF0  FF E0 08 50 */	fneg f31, f1
 /* 8005F314 0005BEF4  40 82 00 14 */	bne lbl_8005F328
@@ -4702,7 +4702,7 @@ lbl_8005F4C0:
 /* 8005F4D4 0005C0B4  41 82 01 30 */	beq lbl_8005F604
 /* 8005F4D8 0005C0B8  C0 3C 08 44 */	lfs f1, 0x844(r28)
 /* 8005F4DC 0005C0BC  C0 5C 08 48 */	lfs f2, 0x848(r28)
-/* 8005F4E0 0005C0C0  4B FC 37 51 */	bl func_80022C30
+/* 8005F4E0 0005C0C0  4B FC 37 51 */	bl func_someCalcAngle_80022C30
 /* 8005F4E4 0005C0C4  28 1E 00 00 */	cmplwi r30, 0
 /* 8005F4E8 0005C0C8  FF E0 08 50 */	fneg f31, f1
 /* 8005F4EC 0005C0CC  40 82 00 14 */	bne lbl_8005F500
@@ -5346,7 +5346,7 @@ lbl_8005FDB8:
 
 
 .section .data
-
+    .balign 8
 .global lbl_803BF7A0
 lbl_803BF7A0:
     .asciz "Duplicate Free %08X\n"
@@ -5373,11 +5373,10 @@ lbl_803BF804:
 lbl_803BF81C:
     .asciz "!(jobj->flags & JOBJ_USE_QUATERNION)"
     .balign 4
-    .4byte NULL
 
 
 .section .bss, "wa"
-
+    .balign 8
 .global lbl_80458EB0
 lbl_80458EB0:
 	.skip 0x30
@@ -5390,7 +5389,7 @@ lbl_80458F60:
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D39A0
 lbl_804D39A0:
     .asciz "eflib.c"
@@ -5411,11 +5410,10 @@ lbl_804D39B4:
 lbl_804D39BC:
     .asciz "scale"
     .balign 4
-    .4byte NULL
 
 
 .section .sbss
-
+    .balign 8
 .global lbl_804D64E8
 lbl_804D64E8:
 	.skip 0x4
@@ -5428,7 +5426,7 @@ lbl_804D64F0:
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804D8168
 lbl_804D8168:
 	.4byte 0x41200000

@@ -1046,7 +1046,7 @@ lbl_80381404:
 /* 80381404 0037DFE4  D0 01 00 30 */	stfs f0, 0x30(r1)
 /* 80381408 0037DFE8  48 00 00 14 */	b lbl_8038141C
 lbl_8038140C:
-/* 8038140C 0037DFEC  4B CA 18 25 */	bl func_80022C30
+/* 8038140C 0037DFEC  4B CA 18 25 */	bl func_someCalcAngle_80022C30
 /* 80381410 0037DFF0  FC 1F 00 72 */	fmul f0, f31, f1
 /* 80381414 0037DFF4  FC 00 00 18 */	frsp f0, f0
 /* 80381418 0037DFF8  D0 01 00 30 */	stfs f0, 0x30(r1)
@@ -1616,7 +1616,7 @@ lbl_80381BB0:
 
 
 .section .data
-
+    .balign 8
 .global lbl_804074F0
 lbl_804074F0:
     .asciz "bytecode.c"
@@ -1636,7 +1636,7 @@ lbl_804074F0:
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D5F98
 lbl_804D5F98:
     .4byte 0x00000000
@@ -1644,11 +1644,10 @@ lbl_804D5F98:
 lbl_804D5F9C:
     .asciz "stack"
     .balign 4
-    .4byte NULL
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804DE7A0
 lbl_804DE7A0:
 	.4byte 0x00000000

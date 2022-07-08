@@ -5,13 +5,15 @@
 
 #include "sysdolphin/baselib/objalloc.h"
 
+#define HSD_GOBJ_OBJ_NONE 0xFF
+
 typedef struct _HSD_GObj {
     u16 classifier;
     u8 p_link;
     u8 gx_link;
     u8 p_priority;
     u8 render_priority;
-    s8 obj_kind;
+    u8 obj_kind;
     u8 user_data_kind;
     struct _HSD_GObj* next; //0x08
     struct _HSD_GObj* prev; //0x0C
@@ -19,10 +21,10 @@ typedef struct _HSD_GObj {
     struct _HSD_GObj* prev_gx; //0x14
     struct _HSD_GObjProc* proc; //0x18
     void (*render_cb)(struct _HSD_GObj* gobj, s32 code); //0x1C
-    u64 gxlink_prios;
-    void* hsd_obj;
-    void* user_data;
-    void (*user_data_remove_func)(void* data);
+    u64 gxlink_prios; //x20
+    void* hsd_obj;  //x28
+    void* user_data;  //x2C
+    void (*user_data_remove_func)(void* data);  ///x30
     void* x34_unk;
 } HSD_GObj;
 

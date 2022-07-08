@@ -1308,7 +1308,7 @@ lbl_80010BB0:
 /* 80010C50 0000D830  C0 61 00 58 */	lfs f3, 0x58(r1)
 lbl_80010C54:
 /* 80010C54 0000D834  FC 40 18 90 */	fmr f2, f3
-/* 80010C58 0000D838  48 01 1F D9 */	bl func_80022C30
+/* 80010C58 0000D838  48 01 1F D9 */	bl func_someCalcAngle_80022C30
 /* 80010C5C 0000D83C  FE 80 08 90 */	fmr f20, f1
 /* 80010C60 0000D840  FC 14 E8 40 */	fcmpo cr0, f20, f29
 /* 80010C64 0000D844  40 80 00 08 */	bge lbl_80010C6C
@@ -1531,18 +1531,18 @@ lbl_80010F8C:
 /* 80010F8C 0000DB6C  FE A0 10 90 */	fmr f21, f2
 /* 80010F90 0000DB70  FC 40 A0 90 */	fmr f2, f20
 /* 80010F94 0000DB74  FC 20 A8 90 */	fmr f1, f21
-/* 80010F98 0000DB78  48 01 1C 99 */	bl func_80022C30
+/* 80010F98 0000DB78  48 01 1C 99 */	bl func_someCalcAngle_80022C30
 /* 80010F9C 0000DB7C  FC 01 E8 40 */	fcmpo cr0, f1, f29
 /* 80010FA0 0000DB80  40 80 00 18 */	bge lbl_80010FB8
 /* 80010FA4 0000DB84  FC 20 A8 90 */	fmr f1, f21
 /* 80010FA8 0000DB88  FC 40 A0 90 */	fmr f2, f20
-/* 80010FAC 0000DB8C  48 01 1C 85 */	bl func_80022C30
+/* 80010FAC 0000DB8C  48 01 1C 85 */	bl func_someCalcAngle_80022C30
 /* 80010FB0 0000DB90  FC 20 08 50 */	fneg f1, f1
 /* 80010FB4 0000DB94  48 00 00 10 */	b lbl_80010FC4
 lbl_80010FB8:
 /* 80010FB8 0000DB98  FC 20 A8 90 */	fmr f1, f21
 /* 80010FBC 0000DB9C  FC 40 A0 90 */	fmr f2, f20
-/* 80010FC0 0000DBA0  48 01 1C 71 */	bl func_80022C30
+/* 80010FC0 0000DBA0  48 01 1C 71 */	bl func_someCalcAngle_80022C30
 lbl_80010FC4:
 /* 80010FC4 0000DBA4  FE 80 08 90 */	fmr f20, f1
 /* 80010FC8 0000DBA8  38 61 00 7C */	addi r3, r1, 0x7c
@@ -2969,7 +2969,7 @@ func_800122C8:
 /* 800122D0 0000EEB0  90 01 00 04 */	stw r0, 4(r1)
 /* 800122D4 0000EEB4  38 E0 00 01 */	li r7, 1
 /* 800122D8 0000EEB8  94 21 FF F8 */	stwu r1, -8(r1)
-/* 800122DC 0000EEBC  48 34 F0 99 */	bl func_80361374
+/* 800122DC 0000EEBC  48 34 F0 99 */	bl HSD_ImageDescCopyFromEFB
 /* 800122E0 0000EEC0  80 01 00 0C */	lwz r0, 0xc(r1)
 /* 800122E4 0000EEC4  38 21 00 08 */	addi r1, r1, 8
 /* 800122E8 0000EEC8  7C 08 03 A6 */	mtlr r0
@@ -4527,13 +4527,13 @@ func_800138EC:
 /* 80013AB4 00010694  38 83 36 14 */	addi r4, r3, lbl_80013614@l
 /* 80013AB8 00010698  38 7A 00 00 */	addi r3, r26, 0
 /* 80013ABC 0001069C  38 BE 00 00 */	addi r5, r30, 0
-/* 80013AC0 000106A0  48 37 CC 9D */	bl func_8039075C
+/* 80013AC0 000106A0  48 37 CC 9D */	bl GObj_SetupGXLinkMax
 /* 80013AC4 000106A4  48 00 00 14 */	b lbl_80013AD8
 lbl_80013AC8:
 /* 80013AC8 000106A8  38 7A 00 00 */	addi r3, r26, 0
 /* 80013ACC 000106AC  38 9D 00 00 */	addi r4, r29, 0
 /* 80013AD0 000106B0  38 BE 00 00 */	addi r5, r30, 0
-/* 80013AD4 000106B4  48 37 CC 89 */	bl func_8039075C
+/* 80013AD4 000106B4  48 37 CC 89 */	bl GObj_SetupGXLinkMax
 lbl_80013AD8:
 /* 80013AD8 000106B8  BB 21 00 54 */	lmw r25, 0x54(r1)
 /* 80013ADC 000106BC  80 01 00 C4 */	lwz r0, 0xc4(r1)
@@ -6671,7 +6671,7 @@ lbl_800158B4:
 
 
 .section .data
-
+    .balign 8
 .global lbl_803BA150
 lbl_803BA150:
     .asciz "active deffect:"
@@ -6782,7 +6782,7 @@ lbl_803BA344:
 
 
 .section .rodata
-
+    .balign 8
 .global lbl_803B7280
 lbl_803B7280:
     .float 0
@@ -6810,7 +6810,7 @@ lbl_803B72B4:
 
 
 .section .bss, "wa"
-
+    .balign 8
 .global lbl_804316C0
 lbl_804316C0:
 	.skip 0x1F0
@@ -6821,7 +6821,7 @@ lbl_804318B0:
 
 
 .section .sbss
-
+    .balign 8
 .global lbl_804D63A0
 lbl_804D63A0:
 	.skip 0x4
@@ -6849,7 +6849,7 @@ lbl_804D63C0:
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D3740
 lbl_804D3740:
     .asciz "jobj.h"
@@ -6903,11 +6903,10 @@ lbl_804D3790:
 lbl_804D3794:
     .asciz "p->size"
     .balign 4
-    .4byte NULL
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804D7BA0
 lbl_804D7BA0:
 	.4byte 0x3F800000

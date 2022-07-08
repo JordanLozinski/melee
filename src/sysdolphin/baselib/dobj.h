@@ -49,9 +49,9 @@ void HSD_DObjRemoveAnimByFlags(HSD_DObj* dobj, u32 flags);
 void HSD_DObjRemoveAnimAllByFlags(HSD_DObj* dobj, u32 flags);
 void HSD_DObjAddAnim(HSD_DObj* dobj, HSD_MatAnim* mat_anim, HSD_ShapeAnimDObj* sh_anim);
 void HSD_DObjAddAnimAll(HSD_DObj* dobj, HSD_MatAnim* matanim, HSD_ShapeAnimDObj* shapeanimdobj);
-void HSD_DObjReqAnimByFlags(HSD_DObj* dobj, u32 flags, f32 frame);
-void HSD_DObjReqAnimAllByFlags(HSD_DObj* dobj, u32 flags, f32 frame);
-void HSD_DObjReqAnimAll(HSD_DObj* dobj, f32 frame);
+void HSD_DObjReqAnimByFlags(HSD_DObj* dobj, f32 startframe, u32 flags);
+void HSD_DObjReqAnimAllByFlags(HSD_DObj* dobj, f32 startframe, u32 flags);
+void HSD_DObjReqAnimAll(HSD_DObj* dobj, f32 startframe);
 void HSD_DObjAnim(HSD_DObj* dobj);
 void HSD_DObjAnimAll(HSD_DObj* dobj);
 HSD_DObj* HSD_DObjLoadDesc(HSD_DObjDesc* desc) ;
@@ -60,7 +60,5 @@ HSD_DObj* HSD_DObjAlloc(void);
 void HSD_DObjResolveRefs(HSD_DObj* dobj, HSD_DObjDesc* desc);
 void HSD_DObjResolveRefsAll(HSD_DObj* dobj, HSD_DObjDesc* desc);
 void HSD_DObjDisp(HSD_DObj* dobj, Mtx vmtx, Mtx pmtx, u32 rendermode);
-
-void DObjInfoInit(void);
 
 #endif

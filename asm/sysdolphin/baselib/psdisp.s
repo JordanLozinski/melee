@@ -3317,7 +3317,7 @@ lbl_803A26F8:
 /* 803A26FC 0039F2DC  48 00 00 10 */	b lbl_803A270C
 lbl_803A2700:
 /* 803A2700 0039F2E0  FC 20 08 50 */	fneg f1, f1
-/* 803A2704 0039F2E4  4B C8 05 2D */	bl func_80022C30
+/* 803A2704 0039F2E4  4B C8 05 2D */	bl func_someCalcAngle_80022C30
 /* 803A2708 0039F2E8  FE 40 08 90 */	fmr f18, f1
 lbl_803A270C:
 /* 803A270C 0039F2EC  80 1E 00 04 */	lwz r0, 4(r30)
@@ -4001,7 +4001,7 @@ lbl_803A30D0:
 /* 803A30D0 0039FCB0  C0 22 F0 6C */	lfs f1, lbl_804DEA4C@sda21(r2)
 /* 803A30D4 0039FCB4  48 00 00 08 */	b lbl_803A30DC
 lbl_803A30D8:
-/* 803A30D8 0039FCB8  4B C7 FB 59 */	bl func_80022C30
+/* 803A30D8 0039FCB8  4B C7 FB 59 */	bl func_someCalcAngle_80022C30
 lbl_803A30DC:
 /* 803A30DC 0039FCBC  80 1E 00 04 */	lwz r0, 4(r30)
 /* 803A30E0 0039FCC0  54 00 02 95 */	rlwinm. r0, r0, 0, 0xa, 0xa
@@ -4584,7 +4584,7 @@ lbl_803A38C4:
 
 
 .section .rodata
-
+    .balign 8
 .global lbl_803B9628
 lbl_803B9628:
     .4byte 0x3F800000
@@ -4602,7 +4602,7 @@ lbl_803B9628:
 
 
 .section .data
-
+    .balign 8
 .global lbl_8040C300
 lbl_8040C300:
     .asciz "object.h"
@@ -4633,14 +4633,14 @@ lbl_8040C360:
 
 
 .section .bss, "wa"
-
+    .balign 8
 .global lbl_804D0FC0
 lbl_804D0FC0:
 	.skip 0xF0
 
 
 .section .sdata
-
+    .balign 8
 .global lbl_804D6380
 lbl_804D6380:
     .asciz "{"
@@ -4652,7 +4652,7 @@ lbl_804D6384:
 
 
 .section .sbss
-
+    .balign 8
 .global lbl_804D7908
 lbl_804D7908:
 	.skip 0x4
@@ -4703,11 +4703,11 @@ lbl_804D7944:
 	.skip 0x4
 .global lbl_804D7948
 lbl_804D7948:
-	.skip 0x8
+	.skip 0x4
 
 
 .section .sdata2
-
+    .balign 8
 .global lbl_804DEA10
 lbl_804DEA10:
 	.4byte 0x00000000
