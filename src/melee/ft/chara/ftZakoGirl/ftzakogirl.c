@@ -1,4 +1,4 @@
-#include "ftzakogirl.h"
+#include <ftzakogirl.h>
 
 void ftZakoGirl_OnDeath(HSD_GObj* gobj)
 {
@@ -7,8 +7,8 @@ void ftZakoGirl_OnDeath(HSD_GObj* gobj)
 
 void ftZakoGirl_OnLoad(HSD_GObj* gobj)
 {
-    Fighter* ft = gobj->user_data;
-    PUSH_ATTRS(ft, s32);
+    Fighter* fp = gobj->user_data;
+    PUSH_ATTRS(fp, s32);
 }
 
 void ftZakoGirl_OnItemPickup(HSD_GObj* fighterObj, BOOL bool) {
@@ -29,8 +29,7 @@ void ftZakoGirl_OnItemDrop(HSD_GObj* fighterObj, BOOL bool1) {
     Fighter_OnItemDrop(fighterObj, bool1, 0, 0);
 }
 
-void func_8014F624(HSD_GObj* gobj)
+void ftZakoGirl_LoadSpecialAttrs(HSD_GObj* gobj)
 {
-    Fighter* ft = gobj->user_data;
-    *(u32*) ft->x2D4_specialAttributes = *(u32*)ft->x10C_ftData->ext_attr;
+    COPY_ATTRS(gobj, s32);
 }

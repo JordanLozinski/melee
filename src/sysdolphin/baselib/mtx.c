@@ -1,8 +1,7 @@
-#include "sysdolphin/baselib/mtx.h"
+#include <sysdolphin/baselib/mtx.h>
 
 
 #define EPSILON 0.0000000001f
-#define M_PI 3.14159265358979323846
 #define FLOAT_MIN  1.1754943E-38f
 
 HSD_ObjAllocData lbl_804C2310;
@@ -160,16 +159,16 @@ void func_80379A20(Mtx src, Mtx dest)
     }
 }
 
-inline f32 calcVal(f32 val1, f32 val2)
+inline f32 calcVal(f32 x, f32 y)
 {
-    if (fabsf_bitwise(val1) <= FLOAT_MIN) {
-        if (val2 >= 0) {
+    if (fabsf_bitwise(x) <= FLOAT_MIN) {
+        if (y >= 0) {
             return M_PI/2;
         } else {
             return -M_PI/2;
         }
     } else {
-        return func_someCalcAngle_80022C30(val2, val1);
+        return atan2f(y, x);
     }
 }
 

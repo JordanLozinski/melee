@@ -1,22 +1,22 @@
-#include "ftNess.h"
+#include <ftNess.h>
 
 void ftNess_OnDeath(HSD_GObj* gobj)
 {
-    Fighter* ft = gobj->user_data;
+    Fighter* fp = gobj->user_data;
     func_80074A4C(gobj, 0, 0);
-    ft->sa.ness.x2240_flashGObj = NULL;
-    ft->sa.ness.x2244_pkThunderGObj = NULL;
-    ft->sa.ness.x2248_baseballBatGObj = NULL;
-    ft->sa.ness.x222C_yoyoGObj = NULL;
-    ft->sa.ness.x224C_thunderGFX = FALSE;
+    fp->sa.ness.x2240_flashGObj = NULL;
+    fp->sa.ness.x2244_pkThunderGObj = NULL;
+    fp->sa.ness.x2248_baseballBatGObj = NULL;
+    fp->sa.ness.x222C_yoyoGObj = NULL;
+    fp->sa.ness.x224C_thunderGFX = FALSE;
 }
 
 void ftNess_OnLoad(HSD_GObj* gobj) 
 {
-    Fighter* ft = gobj->user_data;
-    void** item_list = ft->x10C_ftData->x48_items;
+    Fighter* fp = gobj->user_data;
+    void** item_list = fp->x10C_ftData->x48_items;
 
-    PUSH_ATTRS(ft, ftNessAttributes);
+    PUSH_ATTRS(fp, ftNessAttributes);
 
     func_8026B3F8(item_list[0], It_Kind_Ness_PKFire);
     func_8026B3F8(item_list[1], It_Kind_Ness_PKFire_Flame);
@@ -44,9 +44,9 @@ void ftNess_OnAbsorb(HSD_GObj* gobj)
     ftNess_AbsorbThink_DecideAction(gobj);
 }
 
-f32 ftNess_GetAbsorbHeal(Fighter* ft)
+f32 ftNess_GetAbsorbHeal(Fighter* fp)
 {
-    return ((ftNessAttributes*)ft->x2D4_specialAttributes)->x94_PSI_MAGNET_HEAL_MUL;
+    return ((ftNessAttributes*)fp->x2D4_specialAttributes)->x94_PSI_MAGNET_HEAL_MUL;
 }
 
 void ftNess_OnItemPickup(HSD_GObj* fighterObj, BOOL catchItemFlag) {
@@ -67,23 +67,17 @@ void ftNess_OnItemDrop(HSD_GObj* gobj, BOOL dropItemFlag) {
     Fighter_OnItemDrop(gobj, dropItemFlag, 1, 1);
 }
 
-void ftNess_CopySpecialAttrs(HSD_GObj* gobj) 
+void ftNess_LoadSpecialAttrs(HSD_GObj* gobj) 
 {
-    Fighter* ft = gobj->user_data;
-    
-    ftNessAttributes* sA2 = (ftNessAttributes*)ft->x2D4_specialAttributes;
-    ftNessAttributes* ext_attr = (ftNessAttributes*)ft->x10C_ftData->ext_attr;
-    *sA2 = *ext_attr;
+    COPY_ATTRS(gobj, ftNessAttributes);
 }
 
 void ftNess_OnKnockbackEnter(HSD_GObj* gobj) // Change model's MatAnim frames to hurt textures //
 {
-    func_800704F0(gobj, 1, 3.0f);
-    func_800704F0(gobj, 0, 3.0f);
+    Fighter_OnKnockbackEnter(gobj, 1);
 }
 
 void ftNess_OnKnockbackExit(HSD_GObj* fighter_gobj) // Change model's MatAnim frames to normal textures //
 {
-    func_800704F0(fighter_gobj, 1, 0.0f);
-    func_800704F0(fighter_gobj, 0, 0.0f);
+    Fighter_OnKnockbackExit(fighter_gobj, 1);
 }

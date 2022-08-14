@@ -1,4 +1,4 @@
-#include "ftNess.h"
+#include <ftNess.h>
 
 extern void func_8007B8A8(Hitbox*, Vec3*); // Update Hitbox Positions //
 
@@ -32,10 +32,10 @@ void ftNess_YoyoCheckTimedRehit(HSD_GObj* fighter_gobj) // Ness D-Smash Hitbox R
 
     if (fighter_data->x2200_ftcmd_var0 == 0)
     {
-        if (fighter_data->x2344_stateVar2_s32 > 0)
+        if (fighter_data->nessVars[0].attackHi4.yoyoRehitTimer > 0)
         {
-            fighter_data->x2344_stateVar2_s32 = fighter_data->x2344_stateVar2_s32 - 1;
-            if (fighter_data->x2344_stateVar2_s32 == 0)
+            fighter_data->nessVars[0].attackHi4.yoyoRehitTimer--;
+            if (fighter_data->nessVars[0].attackHi4.yoyoRehitTimer == 0)
             {
                 func_80008440(&fighter_data->x914[0]);
                 func_80008434(&fighter_data->x914[0]);
@@ -158,7 +158,7 @@ void ftNess_YoyoSetUnkPos(HSD_GObj* fighter_gobj, Vec3* pos)
 
     fighter_data = fighter_gobj->user_data;
     collData = &fighter_data->x6F0_collData;
-    if ((s32)fighter_data->x234C_stateVar4 == 0) 
+    if ((s32)fighter_data->nessVars[0].attackHi4.isPosUpdateMod == FALSE)
     {
         func_8000B1CC(fighter_data->x5E8_fighterBones[0x3D].x0_jobj, NULL, pos);
         return;
@@ -167,7 +167,7 @@ void ftNess_YoyoSetUnkPos(HSD_GObj* fighter_gobj, Vec3* pos)
     func_8000B1CC(fighter_data->x5E8_fighterBones[0x2].x0_jobj, NULL, &sp14);
     *pos = sp20;
     lbvector_Sub(pos, &sp14);
-    lbvector_Rotate(pos, 4, -func_someCalcAngle_80022C30(collData->x154_groundNormal.x, collData->x154_groundNormal.y));
+    lbvector_Rotate(pos, 4, -atan2f(collData->x154_groundNormal.x, collData->x154_groundNormal.y));
     lbvector_Add(pos, &sp14);
 }
 
@@ -187,7 +187,7 @@ void ftNess_YoyoSetHitPos(HSD_GObj* fighter_gobj) // Set Yo-Yo hitbox position? 
 
     fighter_data = fighter_gobj->user_data;
     collData = &fighter_data->x6F0_collData;
-    if ((s32)fighter_data->x234C_stateVar4 == 0) 
+    if ((s32)fighter_data->nessVars[0].attackHi4.isPosUpdateMod == 0) 
     {
         func_8000B1CC(fighter_data->x5E8_fighterBones[0x3D].x0_jobj, NULL, &sp2C);
     }
@@ -197,7 +197,7 @@ void ftNess_YoyoSetHitPos(HSD_GObj* fighter_gobj) // Set Yo-Yo hitbox position? 
         func_8000B1CC(fighter_data->x5E8_fighterBones[0x2].x0_jobj, NULL, &sp20);
         sp2C = sp14;
         lbvector_Sub(&sp2C, &sp20);
-        lbvector_Rotate(&sp2C, 4, -func_someCalcAngle_80022C30(collData->x154_groundNormal.x, collData->x154_groundNormal.y));
+        lbvector_Rotate(&sp2C, 4, -atan2f(collData->x154_groundNormal.x, collData->x154_groundNormal.y));
         lbvector_Add(&sp2C, &sp20);
     }
     fighter_data->sa.ness.x2230_yoyoHitboxPos = sp2C;
@@ -220,7 +220,7 @@ void ftNess_YoyoSetHitPosUnk(HSD_GObj* fighter_gobj, f32 pos_unk)
 
     fighter_data = fighter_gobj->user_data;
     collData = &fighter_data->x6F0_collData;
-    if ((s32)fighter_data->x234C_stateVar4 == 0) 
+    if ((s32)fighter_data->nessVars[0].attackHi4.isPosUpdateMod == FALSE) 
     {
         func_8000B1CC(fighter_data->x5E8_fighterBones[0x3D].x0_jobj, NULL, &sp3C);
     }
@@ -230,7 +230,7 @@ void ftNess_YoyoSetHitPosUnk(HSD_GObj* fighter_gobj, f32 pos_unk)
         func_8000B1CC(fighter_data->x5E8_fighterBones[0x2].x0_jobj, NULL, &sp24);
         sp3C = sp18;
         lbvector_Sub(&sp3C, &sp24);
-        lbvector_Rotate(&sp3C, 4, -func_someCalcAngle_80022C30(collData->x154_groundNormal.x, collData->x154_groundNormal.y));
+        lbvector_Rotate(&sp3C, 4, -atan2f(collData->x154_groundNormal.x, collData->x154_groundNormal.y));
         lbvector_Add(&sp3C, &sp24);
     }
     sp30 = fighter_data->sa.ness.x2230_yoyoHitboxPos;
@@ -261,7 +261,7 @@ BOOL ftNess_YoyoCheckNoObstruct(HSD_GObj* fighter_gobj) // Check if Yo-Yo is col
     sp20.z += fighter_data->xB0_pos.z;
     sp14 = fighter_data->sa.ness.x2230_yoyoHitboxPos;
 
-    if (ftNess_YoyoCheckEnvColl(fighter_gobj, &sp20, &sp14, ECB_MUL_Y) == 0) 
+    if (ftNess_YoyoCheckEnvColl(fighter_gobj, &sp20, &sp14, ECB_MUL_Y) == FALSE) 
     {
         sp14 = fighter_data->sa.ness.x2230_yoyoHitboxPos;
         sp20 = sp14;
@@ -277,14 +277,14 @@ BOOL ftNess_YoyoCheckNoObstruct(HSD_GObj* fighter_gobj) // Check if Yo-Yo is col
 
 // 0x80115534 //
 // https://decomp.me/scratch/SAmhe //
-void ftNess_YoyoSetVarAll(HSD_GObj* fighter_gobj) // Set ftcmd-, fighter- and stateVars //
+void ftNess_YoyoSetVarAll(HSD_GObj* fighter_gobj) // Set ftcmd-, fp- and stateVars //
 {
     Fighter* fighter_data = getFighter(fighter_gobj);
     fighter_data->x2204_ftcmd_var1 = 0;
     fighter_data->x2200_ftcmd_var0 = 0;
-    fighter_data->x2340_stateVar1 = 1;
-    fighter_data->x2344_stateVar2 = 0;
-    fighter_data->x234C_stateVar4 = 1;
+    fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame = 1;
+    fighter_data->nessVars[0].attackHi4.yoyoRehitTimer = 0;
+    fighter_data->nessVars[0].attackHi4.isPosUpdateMod = TRUE;
     fighter_data->sa.ness.x2230_yoyoHitboxPos.z = 0.0f;
     fighter_data->sa.ness.x2230_yoyoHitboxPos.y = 0.0f;
     fighter_data->sa.ness.x2230_yoyoHitboxPos.x = 0.0f;
@@ -319,7 +319,7 @@ void ftNess_YoyoApplySmash(HSD_GObj* fighter_gobj)  // Applies Smash Charge attr
     s32 smashColAnimID;
 
     fighter_data = fighter_gobj->user_data;
-    fighter_data->x2340_stateVar1 = 0;
+    fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame = 0;
     temp_yoyo = fighter_data->sa.ness.x222C_yoyoGObj;
     yoyo_GObj = temp_yoyo;
     if (temp_yoyo != 0) 
@@ -372,7 +372,7 @@ void ftNess_YoyoSetChargeDamage(HSD_GObj* fighter_gobj) // the extremely specifi
     s32 filler;
 
     fighter_data = getFighterPlus(fighter_gobj);
-    fighter_data->x2340_stateVar1 = 14; // Current animation frame, integer //
+    fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame = 14; // Current animation frame, integer //
     yoyo_GObj = fighter_data->sa.ness.x222C_yoyoGObj;
     if (yoyo_GObj != NULL)
     {
@@ -421,7 +421,7 @@ BOOL ftNess_YoyoThink_IsRemove(HSD_GObj* fighter_gobj) // Ness Yo-Yo Think //
     fighter_data = fighter_gobj->user_data;
     if ((u32)fighter_data->x2200_ftcmd_var0 != 0U)
     {
-        fighter_data->x234C_stateVar4 = 0;
+        fighter_data->nessVars[0].attackHi4.isPosUpdateMod = 0;
     }
     ASID = fighter_data->x10_action_state_index;
     if ((ASID >= AS_NESS_ATTACKHI4) && (ASID <= AS_NESS_ATTACKHI4_RELEASE))
@@ -434,7 +434,7 @@ BOOL ftNess_YoyoThink_IsRemove(HSD_GObj* fighter_gobj) // Ness Yo-Yo Think //
         yoyoSpawnFrame = 2;
         yoyoDespawnFrame = 60;
     }
-    yoyoSmashFrameCurr = fighter_data->x2340_stateVar1;
+    yoyoSmashFrameCurr = fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame;
     if ((yoyoSmashFrameCurr > yoyoSpawnFrame) && (yoyoSmashFrameCurr <= yoyoDespawnFrame))
     {
         yoyo_GObj = fighter_data->sa.ness.x222C_yoyoGObj;
@@ -465,7 +465,7 @@ BOOL ftNess_YoyoThink_IsRemove(HSD_GObj* fighter_gobj) // Ness Yo-Yo Think //
             yoyoRotFrame = yoyo_attr->x48_DOWNSMASH_YOYO_ROT_FRAME;
             yoyoNudgeFrame = yoyo_attr->x4C_DOWNSMASH_YOYO_NUDGE_FRAME;
         }
-        yoyoSmashFrameCurr2 = fighter_data->x2340_stateVar1;
+        yoyoSmashFrameCurr2 = fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame;
         if (yoyoSmashFrameCurr2 == yoyoRotFrame)
         {
             sp14 = lbl_803B75B0;
@@ -484,7 +484,7 @@ BOOL ftNess_YoyoThink_IsRemove(HSD_GObj* fighter_gobj) // Ness Yo-Yo Think //
         {
             func_802BFEC4(yoyo_GObj);
         }
-        if ((s32)fighter_data->x2340_stateVar1 == yoyoDespawnFrame)
+        if ((s32)fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame == yoyoDespawnFrame)
         {
             func_802BE958(fighter_data->sa.ness.x222C_yoyoGObj);
         }
@@ -525,7 +525,7 @@ void ftNess_YoyoSetUnkRate(HSD_GObj* fighter_gobj) // Calculates Yo-Yo texture r
 
         texanim_unk = yoyo_attr->x20_UNK_TEXANIM_MOD;
         yoyo_float = ((texanim_unk - yoyo_attr->x1C_UNK_TEXANIM_SPEED));
-        yoyo_float = yoyo_float * ((f32)fighter_data->x2340_stateVar1 / ness_attr->xAC_YOYO_CHARGE_DURATION);
+        yoyo_float = yoyo_float * ((f32)fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame / ness_attr->xAC_YOYO_CHARGE_DURATION);
 
         fighter_data->sa.ness.x223C = texanim_unk - yoyo_float;
     }
@@ -616,21 +616,23 @@ void ftNess_YoyoItemSetUnk2(HSD_GObj* fighter_gobj)
 void ftNess_AttackHi4_Action(HSD_GObj* fighter_gobj) // Ness's Up Smash Action State handler //
 {
     Fighter* fighter_data;
-    Fighter* temp_ft;
+    Fighter* temp_fp;
 
     fighter_data = getFighter(fighter_gobj);
     fighter_data->x2218_flag.bits.b0 = 0;
-    fighter_data->x2348_stateVar3 = 0;
-    temp_ft = getFighter(fighter_gobj);
-    temp_ft->x2204_ftcmd_var1 = 0;
-    temp_ft->x2200_ftcmd_var0 = 0;
-    temp_ft->x2340_stateVar1 = 1;
-    temp_ft->x2344_stateVar2 = 0;
-    temp_ft->x234C_stateVar4 = 1;
-    temp_ft->sa.ness.x2230_yoyoHitboxPos.z = 0.0f;
-    temp_ft->sa.ness.x2230_yoyoHitboxPos.y = 0.0f;
-    temp_ft->sa.ness.x2230_yoyoHitboxPos.x = 0.0f;
-    temp_ft->sa.ness.x223C = 0.0f;
+    fighter_data->nessVars[0].attackHi4.isChargeDisable = FALSE;
+
+    temp_fp = getFighter(fighter_gobj);
+    temp_fp->x2204_ftcmd_var1 = 0;
+    temp_fp->x2200_ftcmd_var0 = 0;
+    temp_fp->nessVars[0].attackHi4.yoyoCurrentFrame = 1;
+    temp_fp->nessVars[0].attackHi4.yoyoRehitTimer = 0;
+
+    temp_fp->nessVars[0].attackHi4.isPosUpdateMod = 1;
+    temp_fp->sa.ness.x2230_yoyoHitboxPos.z = 0.0f;
+    temp_fp->sa.ness.x2230_yoyoHitboxPos.y = 0.0f;
+    temp_fp->sa.ness.x2230_yoyoHitboxPos.x = 0.0f;
+    temp_fp->sa.ness.x223C = 0.0f;
     Fighter_ActionStateChange_800693AC(fighter_gobj, AS_NESS_ATTACKHI4, 0, NULL, 0.0f, 1.0f, 0.0f);
     func_8006EBA4(fighter_gobj);
     fighter_data->x2222_flag.bits.b2 = 1;
@@ -647,13 +649,13 @@ void ftNess_YoyoStartTimedRehit(HSD_GObj* fighter_gobj) // Initiates rehit timer
 
     fighter_data = getFighter(fighter_gobj);
     ness_attr = fighter_data->x2D4_specialAttributes;
-    fighter_data->x2344_stateVar2 = (s32)ness_attr->xB4_YOYO_REHIT_RATE;
+    fighter_data->nessVars[0].attackHi4.yoyoRehitTimer = (s32)ness_attr->xB4_YOYO_REHIT_RATE;
 }
 
 Fighter* GetFighterData(HSD_GObj* fighter_gobj)    // 0x80115C9C literally won't match under any circumstances unless this inline is used to get Fighter*. //
 {
-    Fighter* fighter = fighter_gobj->user_data;
-    return fighter;
+    Fighter* fp = fighter_gobj->user_data;
+    return fp;
 }
 
 // 0x80115C9C //
@@ -670,25 +672,25 @@ void ftNess_AttackHi4_Anim(HSD_GObj* fighter_gobj) // Ness's Up Smash Animation 
 
     fighter_data = fighter_gobj->user_data;
     fighter_data2 = fighter_gobj->user_data;
-    yoyoSmashFrameCurr = fighter_data2->x2340_stateVar1;
-    fighter_data->x2340_stateVar1 = (s32)(yoyoSmashFrameCurr + 1);
+    yoyoSmashFrameCurr = fighter_data2->nessVars[0].attackHi4.yoyoCurrentFrame;
+    fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame = (s32)(yoyoSmashFrameCurr + 1);
     if (ftNess_YoyoThink_IsRemove(fighter_gobj) == FALSE) 
     {
         fighter_data = fighter_gobj->user_data;
         if ((u32)fighter_data->x2200_ftcmd_var0 == 0U) 
         {
-            yoyoRehitTimer = fighter_data->x2344_stateVar2;
+            yoyoRehitTimer = fighter_data->nessVars[0].attackHi4.yoyoRehitTimer;
             if (yoyoRehitTimer > 0) 
             {
-                fighter_data->x2344_stateVar2 = (s32)(yoyoRehitTimer - 1);
-                if ((s32)fighter_data->x2344_stateVar2 == 0) 
+                fighter_data->nessVars[0].attackHi4.yoyoRehitTimer = (s32)(yoyoRehitTimer - 1);
+                if ((s32)fighter_data->nessVars[0].attackHi4.yoyoRehitTimer == 0) 
                 {
                     func_80008440(&fighter_data->x914[0]);
                     func_80008434(&fighter_data->x914[0]);
                 }
             }
         }
-        if (((s32)fighter_data2->x2340_stateVar1 == 13) && ((s32)fighter_data2->x2348_stateVar3 == FALSE)) 
+        if (((s32)fighter_data2->nessVars[0].attackHi4.yoyoCurrentFrame == 13) && ((s32)fighter_data2->nessVars[0].attackHi4.isChargeDisable == FALSE)) 
         {
             fighter_data2 = getFighterPlus(fighter_gobj);
             sp18.x = 0.0f;
@@ -726,10 +728,10 @@ void ftNess_AttackHi4_IASA(HSD_GObj* fighter_gobj)   // Ness's Up Smash IASA cal
 {
     Fighter* fighter_data = getFighter(fighter_gobj);
 
-    if ((fighter_data->input.x65C & A_BUTTON_HELD) == FALSE)
+    if ((fighter_data->input.x65C_heldInputs & HSD_BUTTON_A) == FALSE)
 
     {
-        fighter_data->x2348_stateVar3 = TRUE; // Toggle flag to disallow Yo-Yo charge until next Up Smash instance //
+        fighter_data->nessVars[0].attackHi4.isChargeDisable = TRUE; // Toggle flag to disallow Yo-Yo charge until next Up Smash instance //
     }
 
     if (fighter_data->x2218_flag.bits.b0 != 0) 
@@ -799,37 +801,37 @@ void ftNess_AttackHi4_Charge_Anim(HSD_GObj* fighter_gobj)   // Ness's Up Smash C
     HSD_GObj* yoyo_GObj;
     Fighter* fighter_data;
     Fighter* fighter_data2;
-    Fighter* temp_fighter;
+    Fighter* temp_fp;
     ftNessAttributes* ness_attr;
     ftNessAttributes* temp_ness_attr;
 
     fighter_data = fighter_gobj->user_data;
     ness_attr = fighter_data->x2D4_specialAttributes;
-    fighter_data->x2340_stateVar1 = fighter_data->x2340_stateVar1 + 1;
-    temp_ness_attr = getFtSpecialAttrs(temp_fighter = getFighterPlus(fighter_gobj));
-    if ((yoyo_GObj = GetYoyoGObj(temp_fighter = getFighterPlus(fighter_gobj))) != NULL)
+    fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame++;
+    temp_ness_attr = getFtSpecialAttrs(temp_fp = getFighterPlus(fighter_gobj));
+    if ((yoyo_GObj = GetYoyoGObj(temp_fp = getFighterPlus(fighter_gobj))) != NULL)
     {
         item_data = yoyo_GObj->user_data;
         yoyo_attr = item_data->xC4_article_data->x4_specialAttributes;
         unk_float = (yoyo_attr->x20_UNK_TEXANIM_MOD - yoyo_attr->x1C_UNK_TEXANIM_SPEED);
-        unk_float = unk_float * ((f32)temp_fighter->x2340_stateVar1 / temp_ness_attr->xAC_YOYO_CHARGE_DURATION);
-        temp_fighter->sa.ness.x223C = yoyo_attr->x20_UNK_TEXANIM_MOD - unk_float;
+        unk_float = unk_float * ((f32)temp_fp->nessVars[0].attackHi4.yoyoCurrentFrame / temp_ness_attr->xAC_YOYO_CHARGE_DURATION);
+        temp_fp->sa.ness.x223C = yoyo_attr->x20_UNK_TEXANIM_MOD - unk_float;
     }
 
     fighter_data2 = fighter_gobj->user_data;
     if ((u32)fighter_data2->x2200_ftcmd_var0 == 0U)
     {
-        if ((s32)fighter_data2->x2344_stateVar2 > 0)
+        if ((s32)fighter_data2->nessVars[0].attackHi4.yoyoRehitTimer > 0)
         {
-            fighter_data2->x2344_stateVar2 = (s32)(fighter_data2->x2344_stateVar2 - 1);
-            if ((s32)fighter_data2->x2344_stateVar2 == 0)
+            fighter_data2->nessVars[0].attackHi4.yoyoRehitTimer--;
+            if ((s32)fighter_data2->nessVars[0].attackHi4.yoyoRehitTimer == 0)
             {
                 func_80008440(fighter_data2->x914);
                 func_80008434(fighter_data2->x914);
             }
         }
     }
-    if ((f32)fighter_data->x2340_stateVar1 >= ness_attr->xAC_YOYO_CHARGE_DURATION) 
+    if ((f32)fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame >= ness_attr->xAC_YOYO_CHARGE_DURATION) 
     {
         ftNess_AttackHi4_Release_Action(fighter_gobj);
     }
@@ -840,7 +842,7 @@ void ftNess_AttackHi4_Charge_Anim(HSD_GObj* fighter_gobj)   // Ness's Up Smash C
 void ftNess_AttackHi4_Charge_IASA(HSD_GObj* fighter_gobj)   // Ness's Up Smash Charge IASA callback //
 {
     Fighter* fighter_data = getFighter(fighter_gobj);
-    if ((fighter_data->input.x65C & A_BUTTON_HELD) == FALSE) 
+    if ((fighter_data->input.x65C_heldInputs & HSD_BUTTON_A) == FALSE) 
     {
         ftNess_AttackHi4_Release_Action(fighter_gobj);
     }
@@ -898,21 +900,21 @@ void ftNess_AttackHi4_Release_Anim(HSD_GObj* fighter_gobj)   // Ness's Up Smash 
     s32 yoyoRehitTimer;
     s32 yoyoSmashFrameCurr;
     Fighter* fighter_data;
-    Fighter* temp_fighter;
+    Fighter* temp_fp;
 
-    temp_fighter = getFighter(fighter_gobj);
-    yoyoSmashFrameCurr = temp_fighter->x2340_stateVar1;
-    temp_fighter->x2340_stateVar1 = (s32)(yoyoSmashFrameCurr + 1);
+    temp_fp = getFighter(fighter_gobj);
+    yoyoSmashFrameCurr = temp_fp->nessVars[0].attackHi4.yoyoCurrentFrame;
+    temp_fp->nessVars[0].attackHi4.yoyoCurrentFrame = (s32)(yoyoSmashFrameCurr + 1);
     if (ftNess_YoyoThink_IsRemove(fighter_gobj) == FALSE) 
     {
         fighter_data = getFighter(fighter_gobj);
         if ((u32)fighter_data->x2200_ftcmd_var0 == 0U)
         {
-            yoyoRehitTimer = fighter_data->x2344_stateVar2;
+            yoyoRehitTimer = fighter_data->nessVars[0].attackHi4.yoyoRehitTimer;
             if (yoyoRehitTimer > 0) 
             {
-                fighter_data->x2344_stateVar2 = (s32)(yoyoRehitTimer - 1);
-                if ((s32)fighter_data->x2344_stateVar2 == 0) 
+                fighter_data->nessVars[0].attackHi4.yoyoRehitTimer--;
+                if ((s32)fighter_data->nessVars[0].attackHi4.yoyoRehitTimer == 0) 
                 {
                     func_80008440(fighter_data->x914);
                     func_80008434(fighter_data->x914);
@@ -953,7 +955,7 @@ void ftNess_AttackHi4_Release_Phys(HSD_GObj* fighter_gobj) // Ness's Up Smash Po
 
     fighter_data = getFighter(fighter_gobj);
     func_80084F3C(fighter_gobj);
-    yoyoSmashFrameCurr = fighter_data->x2340_stateVar1;
+    yoyoSmashFrameCurr = fighter_data->nessVars[0].attackHi4.yoyoCurrentFrame;
     if (yoyoSmashFrameCurr < 0x18)
     {
 
@@ -1029,7 +1031,7 @@ void ftNess_AttackHi4_Release_Action(HSD_GObj* fighter_gobj)  // Ness's Up Smash
 
     fighter_data2 = getFighterPlus(fighter_gobj);
     fighter_data2 = getFighterPlus(fighter_gobj);
-    fighter_data2->x2340_stateVar1 = 14;
+    fighter_data2->nessVars[0].attackHi4.yoyoCurrentFrame = 14;
 
     if ((yoyo_GObj = fighter_data2->sa.ness.x222C_yoyoGObj) != NULL) 
     {

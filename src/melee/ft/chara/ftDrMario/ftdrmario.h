@@ -5,9 +5,9 @@
 
 #include <dolphin/types.h>
 
-#include "sysdolphin/baselib/gobj.h"
+#include <sysdolphin/baselib/gobj.h>
 
-#include "melee/ft/fighter.h"
+#include <melee/ft/fighter.h>
 
 typedef struct _ftDrMarioAttributes {
     u8 pad_x0[4];
@@ -25,9 +25,9 @@ void ftDrMario_OnItemPickup(HSD_GObj*, BOOL);
 void ftDrMario_OnItemInvisible(HSD_GObj*);
 void ftDrMario_OnItemVisible(HSD_GObj*);
 void ftDrMario_OnItemDrop(HSD_GObj*, BOOL);
-void func_80149724(HSD_GObj*);
+void ftDrMario_LoadSpecialAttrs(HSD_GObj*);
 void ftDrMario_OnKnockbackEnter(HSD_GObj*);
-void ftdrMario_OnKnockbackExit(HSD_GObj*);
+void ftDrMario_OnKnockbackExit(HSD_GObj*);
 void func_801497CC(HSD_GObj*);
 BOOL func_80149844(HSD_GObj*);
 void func_801498A0(HSD_GObj*);

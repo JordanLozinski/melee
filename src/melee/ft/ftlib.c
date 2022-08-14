@@ -1,4 +1,4 @@
-#include "ftlib.h"
+#include <ftlib.h>
 
 #include <sysdolphin/baselib/jobj.h>
 #include <melee/it/itkind.h>
@@ -90,7 +90,7 @@ HSD_GObj* func_80086198(HSD_GObj* gobj)
     return result;
 }
 
-// get closest opposing fighter?
+// get closest opposing fp?
 HSD_GObj* func_8008627C(Vec3* v, HSD_GObj* gobj)
 {
     Vec3 cur_v;
@@ -135,7 +135,7 @@ HSD_GObj* func_8008627C(Vec3* v, HSD_GObj* gobj)
     return result;
 }
 
-// get closest opposing fighter, on given side (left/right)
+// get closest opposing fp, on given side (left/right)
 HSD_GObj* func_80086368(Vec3* v, HSD_GObj* gobj, f32 arg8)
 {
     Vec3 sp24;
@@ -946,7 +946,7 @@ void func_8008770C(HSD_GObj* gobj, void* dst)
 {
     Fighter* fp = gobj->user_data;
     if (fp->x4_fighterKind == FTKIND_GAMEWATCH) {
-        func_8014A7F4(gobj, dst);
+        ftGameWatch_8014A7F4(gobj, dst);
     } else {
         func_800EEB00(gobj, dst);
     }
@@ -956,7 +956,7 @@ void func_80087744(HSD_GObj* gobj, void* dst)
 {
     Fighter* fp = gobj->user_data;
     if (fp->x4_fighterKind == FTKIND_GAMEWATCH) {
-        func_8014A814(gobj, dst);
+        ftGameWatch_8014A814(gobj, dst);
     } else {
         func_800EEB1C(gobj, dst);
     }
@@ -972,7 +972,7 @@ void func_8008777C(HSD_GObj* gobj)
         __assert("ftlib.c", 1517, "fp->ground_or_air == GA_Ground");
     }
     cd = &fp->x6F0_collData;
-    func_someCalcAngle_80022C30(-cd->x154_groundNormal.x, cd->x154_groundNormal.y);
+    atan2f(-cd->x154_groundNormal.x, cd->x154_groundNormal.y);
 }
 
 BOOL func_800877D4(HSD_GObj* gobj)

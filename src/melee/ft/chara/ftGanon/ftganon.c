@@ -1,12 +1,12 @@
-#include "ftganon.h"
+#include <ftganon.h>
 
 void ftGanon_OnDeath(HSD_GObj* gobj)
 {
-    Fighter* ft = gobj->user_data;
+    Fighter* fp = gobj->user_data;
     func_80074A4C(gobj, 0, 0);
     func_80074A4C(gobj, 1, -1);
-    ft->sa.captain.x2230 = 0;
-    ft->sa.captain.x222C = 0;
+    fp->sa.captain.x2230_isSpecialSGFX = FALSE;
+    fp->sa.captain.x222C_isSpecialSStartGFX = FALSE;
 }
 
 void ftGanon_OnItemPickup(HSD_GObj* fighterObj, BOOL bool) {
@@ -33,9 +33,9 @@ void ftGanon_OnLoad(HSD_GObj* gobj)
     ftCaptain_OnLoadForGanon(gobj->user_data);
 }
 
-void func_8014EE40(HSD_GObj* gobj)
+void ftGanon_LoadSpecialAttrs(HSD_GObj* gobj)
 {
-    func_800E2B40(gobj);
+    ftCFalcon_LoadSpecialAttrs(gobj);
 }
 
 void ftGanon_OnKnockbackEnter(HSD_GObj* gobj)

@@ -1,4 +1,4 @@
-#include "ftcommon.h"
+#include <ftcommon.h>
 
 #include <melee/it/itkind.h>
 
@@ -133,7 +133,7 @@ HSD_GObj* func_8007CC1C(HSD_GObj* gobj)
     return gobj;
 }
 
-void func_8007CC78(f32 max, Fighter* fp)
+void func_8007CC78(Fighter* fp, f32 max)
 {
     if (fp->xEC_ground_vel < -max) {
         fp->xEC_ground_vel = -max;
@@ -142,17 +142,17 @@ void func_8007CC78(f32 max, Fighter* fp)
     }
 }
 
-void func_8007CCA0(Fighter* arg0, f32 arg1)
+void func_8007CCA0(Fighter* fp, f32 arg1)
 {
-    if (arg0->xF0_ground_kb_vel < 0) {
-        arg0->xF0_ground_kb_vel = arg0->xF0_ground_kb_vel + arg1;
-        if (arg0->xF0_ground_kb_vel > 0) {
-            arg0->xF0_ground_kb_vel = 0;
+    if (fp->xF0_ground_kb_vel < 0) {
+        fp->xF0_ground_kb_vel = fp->xF0_ground_kb_vel + arg1;
+        if (fp->xF0_ground_kb_vel > 0) {
+            fp->xF0_ground_kb_vel = 0;
         }
     } else {
-        arg0->xF0_ground_kb_vel = arg0->xF0_ground_kb_vel - arg1;
-        if (arg0->xF0_ground_kb_vel < 0) {
-            arg0->xF0_ground_kb_vel = 0;
+        fp->xF0_ground_kb_vel = fp->xF0_ground_kb_vel - arg1;
+        if (fp->xF0_ground_kb_vel < 0) {
+            fp->xF0_ground_kb_vel = 0;
         }
     }
 }
@@ -700,17 +700,17 @@ void func_8007D92C(HSD_GObj* gobj)
 
 f32 func_8007D964(Fighter* fp)
 {
-    return func_someCalcAngle_80022C30(fp->input.x624_lstick_y, fabs_inline(fp->input.x620_lstick_x));
+    return atan2f(fp->input.x624_lstick_y, fabs_inline(fp->input.x620_lstick_x));
 }
 
 f32 func_8007D99C(Fighter* fp)
 {
-    return func_someCalcAngle_80022C30(fp->input.x63C_lsubStick_y, fabs_inline(fp->input.x638_lsubStick_x));
+    return atan2f(fp->input.x63C_lsubStick_y, fabs_inline(fp->input.x638_lsubStick_x));
 }
 
 f32 func_8007D9D4(Fighter* fp)
 {
-    return func_someCalcAngle_80022C30(fp->input.x624_lstick_y, fp->input.x620_lstick_x);
+    return atan2f(fp->input.x624_lstick_y, fp->input.x620_lstick_x);
 }
 
 void func_8007D9FC(Fighter* fp)
@@ -1239,7 +1239,7 @@ void func_8007E3EC(HSD_GObj* gobj)
 void func_8007E5AC(Fighter* fp)
 {
     Vec* ground_normal = &fp->x6F0_collData.x154_groundNormal;
-    f32 tmp = -func_someCalcAngle_80022C30(ground_normal->x, ground_normal->y);
+    f32 tmp = -atan2f(ground_normal->x, ground_normal->y);
     assert_line(1146, fp->ground_or_air == GA_Ground);
     func_80075CB4(fp, 0, tmp);
 }
@@ -1394,7 +1394,6 @@ s32 ftGetParasolStatus(HSD_GObj* gobj)
     return FtParasol_None;
 }
 
-#define M_PI 3.141592653589793
 
 void func_8007EA90(Fighter* fp, s32 arg1)
 {
@@ -2077,14 +2076,14 @@ void func_80080484(Fighter* fp)
     }
 }
 
-void func_800804A0(Fighter* arg0, f32 arg8)
+void func_800804A0(Fighter* fp, f32 arg8)
 {
     f32 temp_f1;
     f32 phi_f31 = arg8;
-    if ((temp_f1 = func_80084A40(arg0)) < 1) {
+    if ((temp_f1 = func_80084A40(fp)) < 1) {
         phi_f31 *= temp_f1;
     }
-    arg0->xE8_ground_accel_2 = phi_f31;
+    fp->xE8_ground_accel_2 = phi_f31;
 }
 
 f32 func_800804EC(Fighter* fp)

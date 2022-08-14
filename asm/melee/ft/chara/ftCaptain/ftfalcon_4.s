@@ -221,8 +221,8 @@ lbl_800E4C80:
 /* 800E4CEC 000E18CC  7C 08 03 A6 */	mtlr r0
 /* 800E4CF0 000E18D0  4E 80 00 20 */	blr 
 
-.global ftCFalcon_SpecialHiAir_StartAction
-ftCFalcon_SpecialHiAir_StartAction:
+.global ftCFalcon_SpecialAirHi_StartAction
+ftCFalcon_SpecialAirHi_StartAction:
 /* 800E4CF4 000E18D4  7C 08 02 A6 */	mflr r0
 /* 800E4CF8 000E18D8  38 80 01 62 */	li r4, 0x162
 /* 800E4CFC 000E18DC  90 01 00 04 */	stw r0, 4(r1)
@@ -880,50 +880,50 @@ as_table_cfalcon:
     .4byte 0x0000012D
     .4byte 0x00340211
     .4byte 0x12000000
-    .4byte func_800E2C80
-    .4byte func_800E2E38
-    .4byte func_800E2F2C
-    .4byte func_800E3168
+    .4byte ftCaptain_SpecialN_Anim
+    .4byte ftCaptain_SpecialN_IASA
+    .4byte ftCaptain_SpecialN_Phys
+    .4byte ftCaptain_SpecialN_Coll
     .4byte func_800761C8
     .4byte 0x0000012E
     .4byte 0x00340611
     .4byte 0x12000000
-    .4byte func_800E2D5C
-    .4byte func_800E2E3C
-    .4byte func_800E3018
-    .4byte func_800E31F4
+    .4byte ftCaptain_SpecialAirN_Anim
+    .4byte ftCaptain_SpecialAirN_IASA
+    .4byte ftCaptain_SpecialAirN_Phys
+    .4byte ftCaptain_SpecialAirN_Coll
     .4byte func_800761C8
     .4byte 0x0000012F
     .4byte 0x00340212
     .4byte 0x13000000
-    .4byte func_800E384C
-    .4byte func_800E3B0C
-    .4byte func_800E3B1C
-    .4byte func_800E3C38
+    .4byte ftCaptain_SpecialSStart_Anim
+    .4byte ftCaptain_SpecialSStart_IASA
+    .4byte ftCaptain_SpecialSStart_Phys
+    .4byte ftCaptain_SpecialSStart_Coll
     .4byte func_800761C8
     .4byte 0x00000130
     .4byte 0x00340212
     .4byte 0x13000000
-    .4byte func_800E3888
-    .4byte func_800E3B10
-    .4byte func_800E3B3C
-    .4byte func_800E3D44
+    .4byte ftCaptain_SpecialS_Anim
+    .4byte ftCaptain_SpecialS_IASA
+    .4byte ftCaptain_SpecialS_Phys
+    .4byte ftCaptain_SpecialS_Coll
     .4byte func_800761C8
     .4byte 0x00000131
     .4byte 0x00340612
     .4byte 0x13000000
-    .4byte func_800E3964
-    .4byte func_800E3B14
-    .4byte func_800E3B5C
-    .4byte func_800E3DE4
+    .4byte ftCaptain_SpecialAirSStart_Anim
+    .4byte ftCaptain_SpecialAirSStart_IASA
+    .4byte ftCaptain_SpecialAirSStart_Phys
+    .4byte ftCaptain_SpecialAirSStart_Coll
     .4byte func_800761C8
     .4byte 0x00000132
     .4byte 0x00340612
     .4byte 0x13000000
-    .4byte func_800E39F0
-    .4byte func_800E3B18
-    .4byte func_800E3BD0
-    .4byte func_800E3E40
+    .4byte ftCaptain_SpecialAirS_Anim
+    .4byte ftCaptain_SpecialAirS_IASA
+    .4byte ftCaptain_SpecialAirS_Phys
+    .4byte ftCaptain_SpecialAirS_Coll
     .4byte func_800761C8
     .4byte 0x00000133
     .4byte 0x00340013
