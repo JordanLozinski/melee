@@ -6943,7 +6943,7 @@ void func_802F0AE0(struct _HSD_GObj *, Vec *, Vec *, s32, s32, f32, f32, f32);
 void func_802F405C(void);
 void func_802F40B8(void);
 int func_802F4144(void);
-void lbl_802F4194(HSD_GObj* param_1);
+void func_802F4194(HSD_GObj* param_1);
 void func_802F4248(void);
 // ? func_802F446C(?);
 void func_802F480C(void);

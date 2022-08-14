@@ -82,7 +82,7 @@ int func_802F4144(void) {
 
 // It seems like func_802F4144 is inlined here but I couldn't get it to match with an actual func_802F4144 call. 
 // This function is called for the timer countdown at the last 5 seconds of a match.
-void lbl_802F4194(HSD_GObj* param_1) {
+void func_802F4194(HSD_GObj* param_1) {
     u16 temp_r30;
     void* temp_r29;
     s32 phi_r3;

@@ -448,6 +448,7 @@ TEXT_O_FILES +=\
 
 TEXT_O_FILES +=\
 	$(BUILD_DIR)/asm/melee/if/ifall.s.o\
+	$(BUILD_DIR)/src/melee/if/iftime.c.o\
 	$(BUILD_DIR)/asm/melee/if/iftime.s.o\
 	$(BUILD_DIR)/asm/melee/if/ifstatus.s.o\
 	$(BUILD_DIR)/asm/melee/if/code_802F7288.s.o\
