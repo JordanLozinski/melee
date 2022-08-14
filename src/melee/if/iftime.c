@@ -26,7 +26,7 @@ struct TimerInfo {
     u32 unused;
     HSD_JObj* mystery_jobj;
 };
-struct TimerInfo lbl_804A1078;
+extern struct TimerInfo lbl_804A1078;
 
 // Match_HideTimer
 void func_802F405C(void) {
@@ -80,7 +80,7 @@ int func_802F4144(void) {
     return iVar1;
 }
 
-// It seems like func_802F4144 is inlined here but I couldn't get the codegen to match. 
+// It seems like func_802F4144 is inlined here but I couldn't get it to match with an actual func_802F4144 call. 
 // This function is called for the timer countdown at the last 5 seconds of a match.
 void lbl_802F4194(HSD_GObj* param_1) {
     u16 temp_r30;
@@ -125,15 +125,14 @@ void func_802F480C(void) {
 void func_802F483C(void) {
     struct _HSD_GObj** foo;
     foo = lbl_804A1078.objptr;
-    if (foo[0] != NULL){
+    if (foo[0] != NULL) {
         func_80390228(foo[0]);
         foo[0] = 0;
     }
-    if (foo[1] != NULL){
+    if (foo[1] != NULL) {
         func_80390228(foo[1]);
         foo[1] = 0;
     }
-
 }
 
 u32 func_802F4898(void) {
@@ -155,4 +154,15 @@ u32 func_802F4898(void) {
         }
     }
     return 0;
+}
+
+// https://decomp.me/scratch/NXA0P
+void func_802F4248(void) {
+    struct TimerInfo* foo = &lbl_804A1078;
+    if (foo->objptr[1] != 0)
+    {
+        func_80390228(foo->objptr[1]);
+        foo->objptr[1] = 0;
+    }
+    return;
 }
